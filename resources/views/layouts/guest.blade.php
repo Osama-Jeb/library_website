@@ -58,7 +58,7 @@
             @auth
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
                     @if (Auth::user()->isAdmin())
-                        <x-nav-link wire:navigate href="{{ route('inbox.admin') }}" :active="request()->routeIs('inbox.admin')">
+                        <x-nav-link wire:navigate href="{{ route('dash.admin') }}" :active="request()->routeIs('dash.admin')">
                             Admin Panel
                         </x-nav-link>
                     @endif

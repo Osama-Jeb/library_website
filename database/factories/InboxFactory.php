@@ -19,6 +19,7 @@ class InboxFactory extends Factory
         return [
             'first' => $this->faker->firstName(),
             'last' => $this->faker->lastName(),
+            'email' => $this->faker->email(),
             'message' => $this->faker->paragraph(),
         ];
     }

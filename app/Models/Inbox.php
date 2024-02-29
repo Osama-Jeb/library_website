@@ -12,6 +12,7 @@ class Inbox extends Model
     protected $fillable = [
         'first',
         'last',
+        'email',
         'message',
     ];
 }

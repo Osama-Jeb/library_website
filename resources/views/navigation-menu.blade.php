@@ -105,7 +105,7 @@
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center">
                         <a wire:navigate href="{{ route('home.index') }}" class="flex items-center gap-2">
-                            <x-application-mark class="block h-9 w-auto" /> <span class="">HOMEPAGE</span>
+                            <x-application-mark class="block h-9 w-auto" /><span>Back To Library</span>
                         </a>
                     </div>
                 </li>

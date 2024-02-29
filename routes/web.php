@@ -7,6 +7,8 @@ use App\Http\Controllers\UserCollection;
 use App\Livewire\Admin\BookCreate;
 use App\Livewire\Admin\BookEdit;
 use App\Livewire\Admin\Books;
+use App\Livewire\Admin\Inbox;
+use App\Livewire\Admin\UserNormal;
 use App\Livewire\Admin\Users\UserEdit;
 use App\Livewire\Admin\Users\Users;
 use App\Livewire\Book\BookShow;
@@ -45,9 +47,15 @@ Route::middleware([
     'verified',
 
 ])->group(function () {
-    Route::get('/inbox/admin', function () {
-        return view('admin.inbox.inbox');
-    })->name('inbox.admin');
+    Route::get('/dash/admin', function () {
+        return view('admin.dash.dash');
+    })->name('dash.admin');
+
+    Route::get('/profile', function () {
+        return view('profile.show');
+    })->name('profile.show');
+
+    Route::get('/inbox/admin', Inbox::class)->name('inbox.admin');
 
     Route::get('/book/admin', Books::class)->name('books.admin');
     Route::get('/book/create', BookCreate::class)->name('books.create');
@@ -55,6 +63,8 @@ Route::middleware([
 
     Route::get('/users/admin', Users::class)->name('users.admin');
     Route::get('/users/edit/{id}', UserEdit::class)->name('users.edit');
+
+    Route::get('/user/profile', UserNormal::class)->name('user.index');
 
     Route::get('/collection', Collection::class)->name('collection.index');
 });

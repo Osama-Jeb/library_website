@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(10)->create();
         \App\Models\Category::factory(5)->create();
         \App\Models\Comment::factory(50)->create();
+        \App\Models\Inbox::factory(50)->create();
 
         \App\Models\User::factory()->create([
             'name' => 'oussama',
@@ -33,7 +34,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
-        
+
         $this->call([
             BookSeeder::class,
             BookCategorySeeder::class,
