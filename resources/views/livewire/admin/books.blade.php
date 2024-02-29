@@ -9,7 +9,7 @@
         <p>Manage Your Books: </p>
         <div class="p-4">
             <div class="overflow-x-auto">
-                <table class="table">
+                <table class="table table-zebra">
                     <!-- head -->
                     <thead>
                         <tr>

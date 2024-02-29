@@ -1,7 +1,7 @@
 <div class="flex items-center justify-center h-[100vh]">
 
     <div>
-        <form action="" wire:submit='store'>
+        <form action="" wire:submit='update'>
 
             <div class="grid grid-cols-2 gap-2">
                 <div>
@@ -107,7 +107,7 @@
 
 
 
-            <button type="submit" class="btn btn-accent text-white btn-block mt-8">Add Boook</button>
+            <button type="submit" class="btn btn-accent text-white btn-block mt-8">Update</button>
         </form>
     </div>
 </div>

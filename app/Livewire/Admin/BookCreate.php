@@ -37,6 +37,7 @@ class BookCreate extends Component
         $this->validate();
 
         $fileName = $this->cover->store('images', 'public');
+
         $newBook = Book::create([
             'title' => $this->title,
             'author' => $this->author,
