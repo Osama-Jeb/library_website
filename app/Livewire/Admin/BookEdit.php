@@ -10,14 +10,14 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
 
 #[Layout('layouts.app')]
 class BookEdit extends Component
 {
     use WithFileUploads;
 
-    public Book $book;
-
+    public $editID;
 
     #[Validate('required')]
     public $editTitle;
@@ -36,23 +36,33 @@ class BookEdit extends Component
 
     public $editCategories = [];
 
-    public function mount()
+    #[Computed()]
+    public function categories()
     {
-        $this->editTitle = $this->book->title;
-        $this->editAuthor = $this->book->author;
-        $this->editDescription = $this->book->description;
-        $this->editPages = $this->book->pages;
-        $this->editAmount = $this->book->amount;
-        $this->editRelease = $this->book->release_date;
-        $this->editCover = $this->book->cover;
+        return Category::all();
+    }
 
-        foreach ($this->book->categories as $cat) {
+    public function mount($id)
+    {
+        $findBook = Book::find($id);
+
+        $this->editID = $findBook->id;
+        $this->editTitle = $findBook->title;
+        $this->editAuthor = $findBook->author;
+        $this->editDescription = $findBook->description;
+        $this->editPages = $findBook->pages;
+        $this->editAmount = $findBook->amount;
+        $this->editRelease = $findBook->release_date;
+        $this->editCover = $findBook->cover;
+
+        foreach ($findBook->categories as $cat) {
             $this->editCategories[] = $cat->id;
         }
     }
 
     public function update()
     {
+        $findBook = Book::find($this->editID);
         $this->validate();
 
         $data = [
@@ -64,28 +74,33 @@ class BookEdit extends Component
             'release_date' => $this->editRelease,
         ];
 
-        if ($this->editCover && $this->editCover != $this->book->cover) {
-            Storage::disk("public")->delete($this->book->cover);
+        if ($this->editCover && $this->editCover != $findBook->cover) {
+            Storage::disk("public")->delete($findBook->cover);
             $data['cover'] = $this->editCover->store('images', 'public');
         }
 
-        $this->book->update($data);
+        $findBook->update($data);
 
         if ($this->editCategories) {
-            $this->book->categories()->sync($this->editCategories);
+            $findBook->categories()->sync($this->editCategories);
         }
 
+        alert('Title','Lorem Lorem Lorem', 'success');
     }
 
 
-    #[Computed()]
-    public function categories()
+    public function delete()
     {
-        return Category::all();
+        $findBook = Book::find($this->editID);
+        $findBook->delete();
+        $this->redirect('/book/admin', true);
     }
 
     public function render()
     {
-        return view('livewire.admin.book-edit');
+        $book = Book::find($this->editID);
+        return view('livewire.admin.books.book-edit', [
+            'book' => $book
+        ]);
     }
 }

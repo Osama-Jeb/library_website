@@ -65,6 +65,6 @@ class BookCreate extends Component
 
     public function render()
     {
-        return view('livewire.admin.book-create');
+        return view('livewire.admin.books.book-create');
     }
 }

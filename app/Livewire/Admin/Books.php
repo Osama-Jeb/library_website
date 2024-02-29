@@ -19,20 +19,31 @@ class Books extends Component
     #[Url()]
     public $orderTitle = 'asc';
 
+    #[Url(as:'s')]
+    public $search = '';
+
     public function setOrderTitle()
     {
         $this->orderTitle = ($this->orderTitle == 'desc') ? 'asc' : 'desc';
+    }
+
+    public function resetFilters()
+    {
+        $this->orderTitle = 'asc';
+        $this->search = '';
+        $this->resetPage();
     }
 
     #[Computed()]
     public function books()
     {
         return Book::orderBy('title', $this->orderTitle)
+        ->where('title', 'like', "%{$this->search}%")
         ->paginate(7);
     }
 
     public function render()
     {
-        return view('livewire.admin.books');
+        return view('livewire.admin.books.books');
     }
 }

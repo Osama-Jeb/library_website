@@ -7,8 +7,11 @@ use App\Http\Controllers\UserCollection;
 use App\Livewire\Admin\BookCreate;
 use App\Livewire\Admin\BookEdit;
 use App\Livewire\Admin\Books;
+use App\Livewire\Admin\Users\UserEdit;
+use App\Livewire\Admin\Users\Users;
 use App\Livewire\Book\BookShow;
 use App\Livewire\Books\Collection;
+use App\Livewire\Contact;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,9 +36,8 @@ Route::get('/about', function () {
     return view('frontend.others.about');
 })->name('about.index');
 
-Route::get('/contact', function () {
-    return view('frontend.others.contact');
-})->name('contact.index');
+
+Route::get('/contact', Contact::class)->name('contact.index');
 
 Route::middleware([
     'auth:sanctum',
@@ -49,7 +51,10 @@ Route::middleware([
 
     Route::get('/book/admin', Books::class)->name('books.admin');
     Route::get('/book/create', BookCreate::class)->name('books.create');
-    Route::get('/books/edit/{book:title}', BookEdit::class)->name('books.edit');
+    Route::get('/books/edit/{id}', BookEdit::class)->name('books.edit');
+
+    Route::get('/users/admin', Users::class)->name('users.admin');
+    Route::get('/users/edit/{id}', UserEdit::class)->name('users.edit');
 
     Route::get('/collection', Collection::class)->name('collection.index');
 });

@@ -1,5 +1,14 @@
-<div class="flex items-center justify-center h-[100vh]">
+<div class="flex items-center justify-center h-[100vh] relative">
 
+    <button type="submit" class="btn btn-error text-white btn-sm absolute top-[10vh] right-[10vw] z-10"
+    wire:click='delete'
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd"
+                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                clip-rule="evenodd"></path>
+        </svg>
+    </button>
     <div>
         <form action="" wire:submit='update'>
 
@@ -66,20 +75,6 @@
                         @enderror
                     </div>
 
-
-                    <div class="flex flex-col gap-2">
-                        <span>Categories: </span>
-                        <div class="grid grid-cols-3">
-                            @foreach ($this->categories() as $category)
-                                <div class="mb-2">
-                                    <input class="checkbox" type="checkbox" value="{{ $category->id }}"
-                                        wire:model="editCategories">
-                                    <label for="category">{{ $category->category }}</label>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-
                     {{-- Cover --}}
                     <div class="flex flex-col mt-3">
                         <label for="cover">Cover:<span class="text-red-600">*</span> </label>
@@ -90,24 +85,35 @@
                         <div wire:loading wire:target="editCover" class="text-green-500 font-bold text-xl">
                             Uploading...
                         </div>
+                        @if ($editCover !== $book->cover)
+                            <img width="200px" class="mt-3 rounded-xl" src="{{ $editCover->temporaryUrl() }}"
+                                alt="">
+                        @else
+                            <img width="200px" class="mt-3 rounded-xl" src="{{ $book->getCover() }}" alt="">
+                        @endif
                     </div>
 
-                    @if ($editCover !== $book->cover)
-                        <img width="200px" class="mt-3 rounded-xl" src="{{ $editCover->temporaryUrl() }}"
-                            alt="">
-                    @else
-                        <img width="200px" class="mt-3 rounded-xl" src="{{ $book->getCover() }}" alt="">
-                    @endif
 
 
                 </div>
 
             </div>
+            <div class="flex flex-col">
+                <span>Categories: </span>
+                <div class="flex justify-between">
+                    @foreach ($this->categories() as $category)
+                        <div>
+                            <input class="checkbox" type="checkbox" value="{{ $category->id }}"
+                                wire:model="editCategories">
+                            <label for="category">{{ $category->category }}</label>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
 
-
-
-
-            <button type="submit" class="btn btn-accent text-white btn-block mt-8">Update</button>
+            <div class="text-center">
+                <button type="submit" class="btn btn-accent text-white btn-block mt-8 max-w-xs">Update</button>
+            </div>
         </form>
     </div>
 </div>
