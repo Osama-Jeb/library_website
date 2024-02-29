@@ -22,6 +22,7 @@
                                 <button wire:click='setOrderTitle'>Title</button>
                             </th>
                             <th>Author</th>
+                            <th>Categories</th>
                             <th>Owned by</th>
                             <th></th>
                         </tr>
@@ -53,6 +54,11 @@
                                     {{$book->author}}
                                     <br />
                                     <span class="badge badge-ghost badge-sm">{{$book->release_date}}</span>
+                                </td>
+                                <td>
+                                    @foreach ($book->categories as $category)
+                                        {{$category->category}}
+                                    @endforeach
                                 </td>
                                 <td>
                                     @foreach ($book->own as $owner)

@@ -1,5 +1,4 @@
-<div
-class="flex items-center justify-center h-[100vh]">
+<div class="flex items-center justify-center h-[100vh]">
 
     <div>
         <form action="" wire:submit='store'>
@@ -67,13 +66,16 @@ class="flex items-center justify-center h-[100vh]">
                         @enderror
                     </div>
 
-                    <div class="flex flex-col">
-                        <label for="category">Category: </label>
-                        <select wire:model='selectedCat' class="">
+                    <div class="flex flex-col gap-2">
+                        <span>Categories: </span>
+                        <div class="grid grid-cols-3">
                             @foreach ($this->categories() as $category)
-                                <option value="{{$category->id}}">{{$category->category}}</option>
+                                <div class="mb-2">
+                                    <input class="checkbox" type="checkbox" value="{{ $category->id }}" wire:model="selectedCats">
+                                    <label for="category">{{ $category->category }}</label>
+                                </div>
                             @endforeach
-                        </select>
+                        </div>
                     </div>
 
                     {{-- Cover --}}
@@ -83,13 +85,14 @@ class="flex items-center justify-center h-[100vh]">
                         @error('cover')
                             <em class="text-red-600 font-bold">{{ $message }}</em>
                         @enderror
-                        <div wire:loading wire:target="cover" class="text-green-500 font-bold text-xl">Uploading...</div>
+                        <div wire:loading wire:target="cover" class="text-green-500 font-bold text-xl">Uploading...
+                        </div>
                     </div>
 
 
                 </div>
                 @if ($cover)
-                    <img width="200px" class="mt-3 rounded-xl" src="{{$cover->temporaryUrl()}}" alt="">
+                    <img width="200px" class="mt-3 rounded-xl" src="{{ $cover->temporaryUrl() }}" alt="">
                 @endif
 
             </div>

@@ -66,6 +66,20 @@
                         @enderror
                     </div>
 
+
+                    <div class="flex flex-col gap-2">
+                        <span>Categories: </span>
+                        <div class="grid grid-cols-3">
+                            @foreach ($this->categories() as $category)
+                                <div class="mb-2">
+                                    <input class="checkbox" type="checkbox" value="{{ $category->id }}"
+                                        wire:model="editCategories">
+                                    <label for="category">{{ $category->category }}</label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
                     {{-- Cover --}}
                     <div class="flex flex-col mt-3">
                         <label for="cover">Cover:<span class="text-red-600">*</span> </label>

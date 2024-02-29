@@ -30,15 +30,14 @@ class BookCreate extends Component
     #[Validate('required')]
     public $cover;
 
-    public $selectedCat = [];
+    public $selectedCats = [];
 
     public function store()
     {
-        // $this->validate();
-        dd($this->selectedCat);
+        $this->validate();
 
         $fileName = $this->cover->store('images', 'public');
-        Book::create([
+        $newBook = Book::create([
             'title' => $this->title,
             'author' => $this->author,
             'description' => $this->description,
@@ -47,6 +46,10 @@ class BookCreate extends Component
             'release_date' => $this->release_date,
             'cover' => $fileName,
         ]);
+
+        if ($this->selectedCats) {
+            $newBook->categories()->sync($this->selectedCats);
+        }
 
         $this->reset();
     }

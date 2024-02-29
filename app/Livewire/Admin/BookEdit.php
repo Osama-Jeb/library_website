@@ -3,6 +3,8 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Book;
+use App\Models\Category;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -11,7 +13,7 @@ use Livewire\WithFileUploads;
 class BookEdit extends Component
 {
     use WithFileUploads;
-    
+
     public Book $book;
 
     public $editTitle;
@@ -22,15 +24,27 @@ class BookEdit extends Component
     public $editRelease;
     public $editCover;
 
-    public function mount()
+    public $editCategories = [];
+
+    public function mount(Book $book)
     {
-        $this->editTitle = $this->book->title;
-        $this->editAuthor = $this->book->author;
-        $this->editDescription = $this->book->description;
-        $this->editPages = $this->book->pages;
-        $this->editAmount = $this->book->amount;
-        $this->editRelease = $this->book->release_date;
-        $this->editCover = $this->book->cover;
+        $this->editTitle = $book->title;
+        $this->editAuthor = $book->author;
+        $this->editDescription = $book->description;
+        $this->editPages = $book->pages;
+        $this->editAmount = $book->amount;
+        $this->editRelease = $book->release_date;
+        $this->editCover = $book->cover;
+
+        foreach ($book->categories as $cat) {
+            $this->editCategories[] = $cat->id;
+        }
+    }
+
+    #[Computed()]
+    public function categories()
+    {
+        return Category::all();
     }
 
     public function render()
