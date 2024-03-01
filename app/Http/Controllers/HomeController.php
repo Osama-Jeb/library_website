@@ -13,7 +13,8 @@ class HomeController extends Controller
     public function __invoke(Request $request)
     {
         return view('home', [
-            'books' => Book::take(4)->get(),
+            'latestBooks' => Book::latest()->take(4)->get(),
+            'randomBooks' => Book::orderBy('title', 'asc')->take(4)->get(),
         ]);
     }
 }

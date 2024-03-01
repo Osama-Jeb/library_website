@@ -28,6 +28,7 @@ class BookShow extends Component
         ]);
 
         $this->reset('comment');
+        toastr()->success('Comment Added!', 'Success');
     }
 
     public function deleteComment($id)
@@ -35,6 +36,7 @@ class BookShow extends Component
         $comment = Comment::find($id);
 
         $comment->delete();
+        toastr()->error('Comment Deleted!', 'Deleted');
     }
 
 }

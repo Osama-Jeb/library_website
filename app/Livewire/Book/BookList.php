@@ -49,9 +49,13 @@ class BookList extends Component
 
     public function resetFilters()
     {
-        $this->search = '';
-        $this->category = '';
-        $this->resetPage();
+
+        if ($this->search || $this->category) {
+            $this->search = '';
+            $this->category = '';
+            $this->resetPage();
+            toastr()->info('Filter Reset!', 'Reset');
+        }
     }
 
     #[Computed()]

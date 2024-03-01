@@ -33,6 +33,7 @@ class Contact extends Component
         ]);
 
         $this->reset();
+        toastr()->success('Message Has Been Sent Successfully!', 'Sent');
     }
 
     public function render()

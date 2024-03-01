@@ -29,9 +29,12 @@ class Books extends Component
 
     public function resetFilters()
     {
-        $this->orderTitle = 'asc';
-        $this->search = '';
-        $this->resetPage();
+        if ($this->search || $this->orderTitle != 'asc') {
+            $this->orderTitle = 'asc';
+            $this->search = '';
+            $this->resetPage();
+            toastr()->info('Filter Reset!', 'Reset');
+        }
     }
 
     #[Computed()]

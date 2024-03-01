@@ -21,6 +21,8 @@ class Collection extends Component
 
         $user->own()->detach($book);
 
+        toastr()->error('Book Removed From Collection!', 'Removed');
+
     }
 
     public function ownedBooks()

@@ -23,6 +23,7 @@ class Inbox extends Component
     {
         $message = ModelsInbox::find($id);
         $message->delete();
+        toastr()->error('Message Deleted!', 'Deleted');
     }
 
     public function render()

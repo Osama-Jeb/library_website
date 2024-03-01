@@ -10,7 +10,6 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
 
 #[Layout('layouts.app')]
 class BookEdit extends Component
@@ -85,7 +84,7 @@ class BookEdit extends Component
             $findBook->categories()->sync($this->editCategories);
         }
 
-        alert('Title','Lorem Lorem Lorem', 'success');
+        toastr()->success('Book has been Updated successfully!', 'Updated');
     }
 
 
@@ -93,6 +92,7 @@ class BookEdit extends Component
     {
         $findBook = Book::find($this->editID);
         $findBook->delete();
+        toastr()->error('Book has been Deleted!', 'Deleted');
         $this->redirect('/book/admin', true);
     }
 

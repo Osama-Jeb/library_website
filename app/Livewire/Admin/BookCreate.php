@@ -53,6 +53,8 @@ class BookCreate extends Component
         }
 
         $this->reset();
+
+        toastr()->success('Book Created Successfully!', 'New Book');
     }
 
 
